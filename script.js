@@ -1,115 +1,115 @@
-const vocales = ['A', 'E', 'I', 'O', 'U'];
-const numerologia = {
-  A: 1, B: 2, C: 3, D: 4, E: 5,
-  F: 6, G: 7, H: 8, I: 9, J: 1,
-  K: 2, L: 3, M: 4, N: 5, O: 6,
-  P: 7, Q: 8, R: 9, S: 1, T: 2,
-  U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
+const letterValues = {
+  A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,
+  J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,
+  S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8
 };
+const vowels = new Set(['A','E','I','O','U']);
 
-function reducirADigito(numero) {
-  while (numero > 9 && numero !== 11 && numero !== 22 && numero !== 33) {
-    numero = numero.toString().split('').reduce((a, b) => a + parseInt(b), 0);
+function reduceNumber(num) {
+  if ([11,22,33].includes(num)) return num; // números maestros
+  while (num > 9) {
+    num = num.toString().split('').reduce((a,b) => a + +b, 0);
+    if ([11,22,33].includes(num)) return num;
   }
-  return numero;
+  return num;
 }
 
-function calcularNumeros(nombre, dia, mes, anio) {
-  nombre = nombre.toUpperCase().replace(/[^A-Z]/g, '');
-
-  let total = 0, alma = 0, personalidad = 0;
-
-  for (let letra of nombre) {
-    let valor = numerologia[letra] || 0;
-    total += valor;
-    if (vocales.includes(letra)) {
-      alma += valor;
-    } else {
-      personalidad += valor;
-    }
+function calculateNameNumbers(name) {
+  const letters = name.toUpperCase().replace(/[^A-Z]/g, '');
+  let total = 0, soul = 0, personality = 0;
+  for (const letter of letters) {
+    const val = letterValues[letter] || 0;
+    total += val;
+    if (vowels.has(letter)) soul += val;
+    else personality += val;
   }
-
-  const fechaNumeros = [...dia.toString(), ...mes.toString(), ...anio.toString()];
-  const sumaFecha = fechaNumeros.reduce((a, b) => a + parseInt(b), 0);
-
-  const caminoVida = reducirADigito(sumaFecha);
-
   return {
-    nombre: reducirADigito(total),
-    alma: reducirADigito(alma),
-    personalidad: reducirADigito(personalidad),
-    caminoVida
+    total,
+    soul,
+    personality,
+    totalReduced: reduceNumber(total),
+    soulReduced: reduceNumber(soul),
+    personalityReduced: reduceNumber(personality)
   };
 }
 
-function comparar(mujer, hombre) {
-  const condiciones = [];
-
-  // Condición 1
-  condiciones.push(mujer.caminoVida === hombre.personalidad);
-
-  // Condición 2
-  condiciones.push(mujer.alma === hombre.caminoVida);
-
-  // Condición 3
-  const iguales = (
-    mujer.nombre === hombre.nombre ||
-    mujer.alma === hombre.alma ||
-    mujer.personalidad === hombre.personalidad ||
-    mujer.caminoVida === hombre.caminoVida
-  );
-  condiciones.push(!iguales);
-
-  return condiciones.every(cond => cond);
+function calculateLifePath(day, month, year) {
+  const digits = (''+day+month+year).replace(/[^0-9]/g, '').split('');
+  let sum = digits.reduce((a,b) => a + Number(b), 0);
+  return reduceNumber(sum);
 }
 
-document.getElementById('formulario').addEventListener('submit', function (e) {
+function checkPastLifeCouple(
+  womanLifePath, womanSoul,
+  manLifePath, manSoul,
+  womanNumbers, manNumbers
+) {
+  const cond1 = (womanLifePath + manSoul) === 10;
+  const cond2 = (womanSoul === manLifePath);
+  const womanSet = new Set([
+    womanNumbers.totalReduced,
+    womanNumbers.soulReduced,
+    womanNumbers.personalityReduced,
+    womanLifePath
+  ]);
+  const manSet = new Set([
+    manNumbers.totalReduced,
+    manNumbers.soulReduced,
+    manNumbers.personalityReduced,
+    manLifePath
+  ]);
+  const intersection = [...womanSet].filter(x => manSet.has(x));
+  const cond3 = intersection.length === 0;
+  return cond1 && cond2 && cond3;
+}
+
+document.getElementById('numerologyForm').addEventListener('submit', e => {
   e.preventDefault();
 
-  const nombreMujer = document.getElementById('nombreMujer').value;
-  const diaMujer = parseInt(document.getElementById('diaMujer').value);
-  const mesMujer = parseInt(document.getElementById('mesMujer').value);
-  const anioMujer = parseInt(document.getElementById('anioMujer').value);
+  const womanName = document.getElementById('womanName').value.trim();
+  const manName = document.getElementById('manName').value.trim();
 
-  const nombreHombre = document.getElementById('nombreHombre').value;
-  const diaHombre = parseInt(document.getElementById('diaHombre').value);
-  const mesHombre = parseInt(document.getElementById('mesHombre').value);
-  const anioHombre = parseInt(document.getElementById('anioHombre').value);
+  const womanDay = parseInt(document.getElementById('womanDay').value, 10);
+  const womanMonth = parseInt(document.getElementById('womanMonth').value, 10);
+  const womanYear = parseInt(document.getElementById('womanYear').value, 10);
 
-  // Validación básica
-  if (
-    isNaN(diaMujer) || isNaN(mesMujer) || isNaN(anioMujer) ||
-    isNaN(diaHombre) || isNaN(mesHombre) || isNaN(anioHombre)
-  ) {
-    document.getElementById('resultado').innerHTML = "<p style='color:red;'>Por favor, completa todas las fechas correctamente.</p>";
-    return;
-  }
+  const manDay = parseInt(document.getElementById('manDay').value, 10);
+  const manMonth = parseInt(document.getElementById('manMonth').value, 10);
+  const manYear = parseInt(document.getElementById('manYear').value, 10);
 
-  const mujer = calcularNumeros(nombreMujer, diaMujer, mesMujer, anioMujer);
-  const hombre = calcularNumeros(nombreHombre, diaHombre, mesHombre, anioHombre);
+  // Calcular números
+  const womanNumbers = calculateNameNumbers(womanName);
+  const manNumbers = calculateNameNumbers(manName);
 
-  const fueronPareja = comparar(mujer, hombre);
+  const womanLifePath = calculateLifePath(womanDay, womanMonth, womanYear);
+  const manLifePath = calculateLifePath(manDay, manMonth, manYear);
 
-  const resultado = document.getElementById('resultado');
-  resultado.innerHTML = `
-    <h2>Resultados:</h2>
-    <h3>Mujer (${nombreMujer})</h3>
-    <ul>
-      <li>Número del Nombre: ${mujer.nombre}</li>
-      <li>Número del Alma: ${mujer.alma}</li>
-      <li>Número de la Personalidad: ${mujer.personalidad}</li>
-      <li>Camino de Vida: ${mujer.caminoVida}</li>
-    </ul>
+  const isCouple = checkPastLifeCouple(
+    womanLifePath, womanNumbers.soulReduced,
+    manLifePath, manNumbers.soulReduced,
+    womanNumbers, manNumbers
+  );
 
-    <h3>Hombre (${nombreHombre})</h3>
-    <ul>
-      <li>Número del Nombre: ${hombre.nombre}</li>
-      <li>Número del Alma: ${hombre.alma}</li>
-      <li>Número de la Personalidad: ${hombre.personalidad}</li>
-      <li>Camino de Vida: ${hombre.caminoVida}</li>
-    </ul>
+  const output = `
+    <h2>Resultados</h2>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Mujer</th>
+          <th>Hombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Nombre (total)</td><td>${womanNumbers.totalReduced}</td><td>${manNumbers.totalReduced}</td></tr>
+        <tr><td>Número del alma</td><td>${womanNumbers.soulReduced}</td><td>${manNumbers.soulReduced}</td></tr>
+        <tr><td>Número de personalidad</td><td>${womanNumbers.personalityReduced}</td><td>${manNumbers.personalityReduced}</td></tr>
+        <tr><td>Camino de vida</td><td>${womanLifePath}</td><td>${manLifePath}</td></tr>
+      </tbody>
+    </table>
 
-    <h3>¿Fueron pareja en una vida pasada?</h3>
-    <p><strong>${fueronPareja ? 'Sí' : 'No'}</strong></p>
+    <p class="result">${isCouple ? '¡Fueron pareja en vidas pasadas!' : 'No fueron pareja en vidas pasadas.'}</p>
   `;
+
+  document.getElementById('output').innerHTML = output;
 });
