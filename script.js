@@ -58,6 +58,9 @@ function checkPastLifeCouple(
 document.getElementById('numerologyForm').addEventListener('submit', e => {
   e.preventDefault();
 
+  const outputDiv = document.getElementById('output');
+  outputDiv.innerHTML = '';  // Limpiar salida previa
+
   const womanName = document.getElementById('womanName').value.trim();
   const manName = document.getElementById('manName').value.trim();
 
@@ -69,7 +72,23 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
   const manMonth = parseInt(document.getElementById('manMonth').value, 10);
   const manYear = parseInt(document.getElementById('manYear').value, 10);
 
-  // Calcular números
+  if (
+    !womanName || !manName ||
+    isNaN(womanDay) || isNaN(womanMonth) || isNaN(womanYear) ||
+    isNaN(manDay) || isNaN(manMonth) || isNaN(manYear)
+  ) {
+    outputDiv.innerHTML = '<p class="result no">Por favor completa todos los campos correctamente.</p>';
+    return;
+  }
+
+  if (
+    womanDay < 1 || womanDay > 31 || womanMonth < 1 || womanMonth > 12 ||
+    manDay < 1 || manDay > 31 || manMonth < 1 || manMonth > 12
+  ) {
+    outputDiv.innerHTML = '<p class="result no">Por favor ingresa fechas válidas.</p>';
+    return;
+  }
+
   const womanNumbers = calculateNameNumbers(womanName);
   const manNumbers = calculateNameNumbers(manName);
 
@@ -105,5 +124,5 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
     </p>
   `;
 
-  document.getElementById('output').innerHTML = output;
+  outputDiv.innerHTML = output;
 });
