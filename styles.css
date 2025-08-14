@@ -36,14 +36,17 @@ input[type="number"] {
 .date-inputs {
   display: flex;
   gap: 5px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;  /* ❗ Esto impide que se bajen */
 }
 
+
 .date-inputs input {
-  width: 30px;
+  flex: 1 1 auto;
+  max-width: 80px;
   padding: 5px;
   text-align: center;
 }
+
 
 button {
   padding: 10px;
