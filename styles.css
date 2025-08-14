@@ -1,123 +1,111 @@
-/* Reset básico */
-* {
-  box-sizing: border-box;
-}
-
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f7fa;
-  color: #333;
+  background: #f9f9f9;
   margin: 0;
   padding: 20px;
-  display: flex;
-  justify-content: center;
+  color: #333;
 }
 
 .container {
-  background: white;
-  padding: 30px 40px;
-  border-radius: 10px;
   max-width: 600px;
-  width: 100%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  background: white;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   color: #2c3e50;
 }
 
 form fieldset {
   border: 1px solid #ddd;
-  padding: 20px 25px;
+  padding: 15px;
   margin-bottom: 20px;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 form legend {
-  padding: 0 10px;
-  font-weight: 600;
-  color: #2980b9;
-  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0 8px;
+  color: #34495e;
 }
 
 label {
   display: block;
-  margin-bottom: 10px;
-  font-weight: 500;
-  color: #34495e;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  font-weight: 600;
 }
 
 input[type="text"],
 input[type="number"] {
-  width: 100%;
-  padding: 8px 12px;
-  margin-top: 4px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  width: calc(100% - 12px);
+  padding: 6px;
   font-size: 1rem;
-  transition: border-color 0.3s;
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus {
-  border-color: #2980b9;
-  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 input[type="number"] {
-  max-width: 100px;
-  margin-right: 10px;
-  display: inline-block;
+  width: 32%;
+  margin-right: 2%;
 }
 
-form button {
+input[type="number"]:nth-child(3n) {
+  margin-right: 0;
+}
+
+button {
   width: 100%;
-  background: #2980b9;
-  border: none;
-  padding: 12px 0;
+  padding: 12px;
+  font-size: 1.1rem;
+  background: #27ae60;
   color: white;
-  font-size: 1.2rem;
-  border-radius: 8px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
   transition: background-color 0.3s ease;
-  margin-top: 10px;
 }
 
-form button:hover {
-  background: #1c5980;
+button:hover {
+  background: #219150;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 25px;
-  font-size: 1rem;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 12px;
   text-align: center;
-  color: #2c3e50;
 }
 
-th {
-  background-color: #2980b9;
+thead th {
+  background: #27ae60;
   color: white;
+  padding: 10px;
+  font-weight: 700;
+}
+
+tbody td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-weight: 600;
+  color: #2c3e50;
 }
 
 .result {
   margin-top: 25px;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: #27ae60;
+  color: #27ae60; /* Verde */
   text-align: center;
 }
 
 .result.no {
-  color: #c0392b;
+  color: #c0392b; /* Rojo */
 }
-
