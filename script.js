@@ -46,20 +46,12 @@ function checkPastLifeCouple(
 ) {
   const cond1 = (womanLifePath + manSoul) === 10;
   const cond2 = (womanSoul === manLifePath);
-  const womanSet = new Set([
-    womanNumbers.totalReduced,
-    womanNumbers.soulReduced,
-    womanNumbers.personalityReduced,
-    womanLifePath
-  ]);
-  const manSet = new Set([
-    manNumbers.totalReduced,
-    manNumbers.soulReduced,
-    manNumbers.personalityReduced,
-    manLifePath
-  ]);
-  const intersection = [...womanSet].filter(x => manSet.has(x));
-  const cond3 = intersection.length === 0;
+  const cond3 = (
+    womanNumbers.totalReduced !== manNumbers.totalReduced &&
+    womanNumbers.soulReduced !== manNumbers.soulReduced &&
+    womanNumbers.personalityReduced !== manNumbers.personalityReduced &&
+    womanLifePath !== manLifePath
+  );
   return cond1 && cond2 && cond3;
 }
 
@@ -113,3 +105,4 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
 
   document.getElementById('output').innerHTML = output;
 });
+
