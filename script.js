@@ -14,12 +14,10 @@ function reducirADigito(numero) {
   return numero;
 }
 
-function calcularNumeros(nombre, fecha) {
+function calcularNumeros(nombre, dia, mes, anio) {
   nombre = nombre.toUpperCase().replace(/[^A-Z]/g, '');
 
-  let total = 0;
-  let alma = 0;
-  let personalidad = 0;
+  let total = 0, alma = 0, personalidad = 0;
 
   for (let letra of nombre) {
     let valor = numerologia[letra] || 0;
@@ -31,14 +29,16 @@ function calcularNumeros(nombre, fecha) {
     }
   }
 
-  let caminoVida = fecha.split('-').join('').split('').reduce((a, b) => a + parseInt(b), 0);
-  caminoVida = reducirADigito(caminoVida);
+  const fechaNumeros = [...dia.toString(), ...mes.toString(), ...anio.toString()];
+  const sumaFecha = fechaNumeros.reduce((a, b) => a + parseInt(b), 0);
+
+  const caminoVida = reducirADigito(sumaFecha);
 
   return {
     nombre: reducirADigito(total),
     alma: reducirADigito(alma),
     personalidad: reducirADigito(personalidad),
-    caminoVida: caminoVida
+    caminoVida
   };
 }
 
@@ -67,12 +67,26 @@ document.getElementById('formulario').addEventListener('submit', function (e) {
   e.preventDefault();
 
   const nombreMujer = document.getElementById('nombreMujer').value;
-  const fechaMujer = document.getElementById('fechaMujer').value;
-  const nombreHombre = document.getElementById('nombreHombre').value;
-  const fechaHombre = document.getElementById('fechaHombre').value;
+  const diaMujer = parseInt(document.getElementById('diaMujer').value);
+  const mesMujer = parseInt(document.getElementById('mesMujer').value);
+  const anioMujer = parseInt(document.getElementById('anioMujer').value);
 
-  const mujer = calcularNumeros(nombreMujer, fechaMujer);
-  const hombre = calcularNumeros(nombreHombre, fechaHombre);
+  const nombreHombre = document.getElementById('nombreHombre').value;
+  const diaHombre = parseInt(document.getElementById('diaHombre').value);
+  const mesHombre = parseInt(document.getElementById('mesHombre').value);
+  const anioHombre = parseInt(document.getElementById('anioHombre').value);
+
+  // Validación básica
+  if (
+    isNaN(diaMujer) || isNaN(mesMujer) || isNaN(anioMujer) ||
+    isNaN(diaHombre) || isNaN(mesHombre) || isNaN(anioHombre)
+  ) {
+    document.getElementById('resultado').innerHTML = "<p style='color:red;'>Por favor, completa todas las fechas correctamente.</p>";
+    return;
+  }
+
+  const mujer = calcularNumeros(nombreMujer, diaMujer, mesMujer, anioMujer);
+  const hombre = calcularNumeros(nombreHombre, diaHombre, mesHombre, anioHombre);
 
   const fueronPareja = comparar(mujer, hombre);
 
