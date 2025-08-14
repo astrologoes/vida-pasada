@@ -103,10 +103,6 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
 
   const output = `
     <h2>Resultados</h2>
-    <p style="color:${isCouple ? '#27ae60' : '#c0392b'}; font-weight:bold; font-size:1.3rem; text-align:center; text-transform:uppercase;">
-      ${isCouple ? '¡Fueron pareja en vidas pasadas!' : 'No fueron pareja en vidas pasadas.'}
-    </p>
-
     <table>
       <thead>
         <tr>
@@ -122,6 +118,10 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
         <tr><td>Camino de vida</td><td>${womanLifePath}</td><td>${manLifePath}</td></tr>
       </tbody>
     </table>
+
+    <p style="color:${isCouple ? '#27ae60' : '#c0392b'}; font-weight:bold; font-size:1.3rem; text-align:center;">
+      ${isCouple ? '¡Fueron pareja en vidas pasadas!' : 'No fueron pareja en vidas pasadas.'}
+    </p>
   `;
 
   outputDiv.innerHTML = output;
