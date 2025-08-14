@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>¿Fueron pareja en una vida pasada?</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <h1>¿Fueron pareja en una vida pasada?</h1>
+
+  <form id="formulario">
+    <fieldset>
+      <legend>Mujer</legend>
+      <label>Nombre completo:
+        <input type="text" id="nombreMujer" required>
+      </label>
+      <label>Fecha de nacimiento:
+        <input type="date" id="fechaMujer" required>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Hombre</legend>
+      <label>Nombre completo:
+        <input type="text" id="nombreHombre" required>
+      </label>
+      <label>Fecha de nacimiento:
+        <input type="date" id="fechaHombre" required>
+      </label>
+    </fieldset>
+
+    <button type="submit">Calcular</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
