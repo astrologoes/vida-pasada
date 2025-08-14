@@ -28,10 +28,20 @@ label {
 }
 
 input[type="text"],
-input[type="date"] {
+input[type="number"] {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
+}
+
+.fecha {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.fecha input {
+  width: 80px;
 }
 
 button {
