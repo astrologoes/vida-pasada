@@ -105,4 +105,3 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
 
   document.getElementById('output').innerHTML = output;
 });
-
