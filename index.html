@@ -2,36 +2,33 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Numerología - Pareja Vida Pasada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Numerología de Vidas Pasadas</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Numerología Pitagórica - Pareja Vida Pasada</h1>
-
+    <h1>Numerología de Vidas Pasadas</h1>
     <form id="numerologyForm">
-      <fieldset>
-        <legend>Mujer</legend>
-        <label>Nombre completo:
-          <input type="text" id="womanName" required />
-        </label>
-        <label>Fecha de nacimiento:</label>
-        <input type="number" id="womanDay" min="1" max="31" placeholder="Día" required />
-        <input type="number" id="womanMonth" min="1" max="12" placeholder="Mes" required />
-        <input type="number" id="womanYear" min="1900" max="2100" placeholder="Año" required />
-      </fieldset>
+      <label for="womanName">Nombre completo de la mujer:</label>
+      <input type="text" id="womanName" placeholder="Ej: Ana María Gómez" required />
 
-      <fieldset>
-        <legend>Hombre</legend>
-        <label>Nombre completo:
-          <input type="text" id="manName" required />
-        </label>
-        <label>Fecha de nacimiento:</label>
-        <input type="number" id="manDay" min="1" max="31" placeholder="Día" required />
-        <input type="number" id="manMonth" min="1" max="12" placeholder="Mes" required />
-        <input type="number" id="manYear" min="1900" max="2100" placeholder="Año" required />
-      </fieldset>
+      <label>Fecha de nacimiento de la mujer:</label>
+      <div class="date-inputs">
+        <input type="number" id="womanDay" placeholder="Día" min="1" max="31" required />
+        <input type="number" id="womanMonth" placeholder="Mes" min="1" max="12" required />
+        <input type="number" id="womanYear" placeholder="Año" required />
+      </div>
+
+      <label for="manName">Nombre completo del hombre:</label>
+      <input type="text" id="manName" placeholder="Ej: Juan Carlos Pérez" required />
+
+      <label>Fecha de nacimiento del hombre:</label>
+      <div class="date-inputs">
+        <input type="number" id="manDay" placeholder="Día" min="1" max="31" required />
+        <input type="number" id="manMonth" placeholder="Mes" min="1" max="12" required />
+        <input type="number" id="manYear" placeholder="Año" required />
+      </div>
 
       <button type="submit">Calcular</button>
     </form>
