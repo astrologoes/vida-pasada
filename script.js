@@ -77,7 +77,7 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
     isNaN(womanDay) || isNaN(womanMonth) || isNaN(womanYear) ||
     isNaN(manDay) || isNaN(manMonth) || isNaN(manYear)
   ) {
-    outputDiv.innerHTML = '<p class="result no">Por favor completa todos los campos correctamente.</p>';
+    outputDiv.innerHTML = '<p style="color:#c0392b; font-weight:bold; text-align:center;">Por favor completa todos los campos correctamente.</p>';
     return;
   }
 
@@ -85,7 +85,7 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
     womanDay < 1 || womanDay > 31 || womanMonth < 1 || womanMonth > 12 ||
     manDay < 1 || manDay > 31 || manMonth < 1 || manMonth > 12
   ) {
-    outputDiv.innerHTML = '<p class="result no">Por favor ingresa fechas válidas.</p>';
+    outputDiv.innerHTML = '<p style="color:#c0392b; font-weight:bold; text-align:center;">Por favor ingresa fechas válidas.</p>';
     return;
   }
 
@@ -119,7 +119,7 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
       </tbody>
     </table>
 
-    <p class="result ${isCouple ? '' : 'no'}">
+    <p style="color:${isCouple ? '#27ae60' : '#c0392b'}; font-weight:bold; font-size:1.3rem; text-align:center;">
       ${isCouple ? '¡Fueron pareja en vidas pasadas!' : 'No fueron pareja en vidas pasadas.'}
     </p>
   `;
