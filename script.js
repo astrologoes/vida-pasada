@@ -100,7 +100,9 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
       </tbody>
     </table>
 
-    <p class="result">${isCouple ? '¡Fueron pareja en vidas pasadas!' : 'No fueron pareja en vidas pasadas.'}</p>
+    <p class="result ${isCouple ? '' : 'no'}">
+      ${isCouple ? '¡Fueron pareja en vidas pasadas!' : 'No fueron pareja en vidas pasadas.'}
+    </p>
   `;
 
   document.getElementById('output').innerHTML = output;
