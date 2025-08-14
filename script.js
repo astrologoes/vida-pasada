@@ -59,7 +59,7 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
   e.preventDefault();
 
   const outputDiv = document.getElementById('output');
-  outputDiv.innerHTML = '';  // Limpiar salida previa
+  outputDiv.innerHTML = '';
 
   const womanName = document.getElementById('womanName').value.trim();
   const manName = document.getElementById('manName').value.trim();
@@ -89,40 +89,4 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
     return;
   }
 
-  const womanNumbers = calculateNameNumbers(womanName);
-  const manNumbers = calculateNameNumbers(manName);
-
-  const womanLifePath = calculateLifePath(womanDay, womanMonth, womanYear);
-  const manLifePath = calculateLifePath(manDay, manMonth, manYear);
-
-  const isCouple = checkPastLifeCouple(
-    womanLifePath, womanNumbers.soulReduced,
-    manLifePath, manNumbers.soulReduced,
-    womanNumbers, manNumbers
-  );
-
-  const output = `
-    <h2>Resultados</h2>
-    <p style="color:${isCouple ? '#27ae60' : '#c0392b'}; font-weight:bold; font-size:1.3rem; text-align:center; text-transform:uppercase;">
-      ${isCouple ? '¡Fueron pareja en vidas pasadas!' : 'No fueron pareja en vidas pasadas.'}
-    </p>
-
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Mujer</th>
-          <th>Hombre</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Nombre (total)</td><td>${womanNumbers.totalReduced}</td><td>${manNumbers.totalReduced}</td></tr>
-        <tr><td>Número del alma</td><td>${womanNumbers.soulReduced}</td><td>${manNumbers.soulReduced}</td></tr>
-        <tr><td>Número de personalidad</td><td>${womanNumbers.personalityReduced}</td><td>${manNumbers.personalityReduced}</td></tr>
-        <tr><td>Camino de vida</td><td>${womanLifePath}</td><td>${manLifePath}</td></tr>
-      </tbody>
-    </table>
-  `;
-
-  outputDiv.innerHTML = output;
-});
+  const womanNumbers = calculateNameNumbers(womanNam
