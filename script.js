@@ -6,10 +6,10 @@ const letterValues = {
 const vowels = new Set(['A','E','I','O','U']);
 
 function reduceNumber(num) {
-  if ([11,22,33].includes(num)) return num; // números maestros
+  if ([11, 22, 33].includes(num)) return num; // Números maestros
   while (num > 9) {
-    num = num.toString().split('').reduce((a,b) => a + +b, 0);
-    if ([11,22,33].includes(num)) return num;
+    num = num.toString().split('').reduce((sum, digit) => sum + Number(digit), 0);
+    if ([11, 22, 33].includes(num)) return num;
   }
   return num;
 }
@@ -17,12 +17,17 @@ function reduceNumber(num) {
 function calculateNameNumbers(name) {
   const letters = name.toUpperCase().replace(/[^A-Z]/g, '');
   let total = 0, soul = 0, personality = 0;
+
   for (const letter of letters) {
-    const val = letterValues[letter] || 0;
-    total += val;
-    if (vowels.has(letter)) soul += val;
-    else personality += val;
+    const value = letterValues[letter] || 0;
+    total += value;
+    if (vowels.has(letter)) {
+      soul += value;
+    } else {
+      personality += value;
+    }
   }
+
   return {
     total,
     soul,
@@ -34,8 +39,8 @@ function calculateNameNumbers(name) {
 }
 
 function calculateLifePath(day, month, year) {
-  const digits = (''+day+month+year).replace(/[^0-9]/g, '').split('');
-  let sum = digits.reduce((a,b) => a + Number(b), 0);
+  const fullDate = `${day}${month}${year}`.replace(/[^0-9]/g, '');
+  const sum = fullDate.split('').reduce((a, b) => a + Number(b), 0);
   return reduceNumber(sum);
 }
 
@@ -55,19 +60,18 @@ function checkPastLifeCouple(
   return cond1 && cond2 && cond3;
 }
 
-document.getElementById('numerologyForm').addEventListener('submit', e => {
+document.getElementById('numerologyForm').addEventListener('submit', (e) => {
   e.preventDefault();
 
   const outputDiv = document.getElementById('output');
   outputDiv.innerHTML = '';
 
   const womanName = document.getElementById('womanName').value.trim();
-  const manName = document.getElementById('manName').value.trim();
-
   const womanDay = parseInt(document.getElementById('womanDay').value, 10);
   const womanMonth = parseInt(document.getElementById('womanMonth').value, 10);
   const womanYear = parseInt(document.getElementById('womanYear').value, 10);
 
+  const manName = document.getElementById('manName').value.trim();
   const manDay = parseInt(document.getElementById('manDay').value, 10);
   const manMonth = parseInt(document.getElementById('manMonth').value, 10);
   const manYear = parseInt(document.getElementById('manYear').value, 10);
@@ -89,4 +93,42 @@ document.getElementById('numerologyForm').addEventListener('submit', e => {
     return;
   }
 
-  const womanNumbers = calculateNameNumbers(womanNam
+  // Cálculos
+  const womanNumbers = calculateNameNumbers(womanName);
+  const manNumbers = calculateNameNumbers(manName);
+
+  const womanLifePath = calculateLifePath(womanDay, womanMonth, womanYear);
+  const manLifePath = calculateLifePath(manDay, manMonth, manYear);
+
+  const isCouple = checkPastLifeCouple(
+    womanLifePath, womanNumbers.soulReduced,
+    manLifePath, manNumbers.soulReduced,
+    womanNumbers, manNumbers
+  );
+
+  // Mostrar resultado
+  const output = `
+    <h2>Resultados</h2>
+    <p style="color:${isCouple ? '#27ae60' : '#c0392b'}; font-weight:bold; font-size:1.3rem; text-align:center; text-transform:uppercase;">
+      ${isCouple ? '¡Fueron pareja en vidas pasadas!' : 'No fueron pareja en vidas pasadas.'}
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Mujer</th>
+          <th>Hombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Nombre (total)</td><td>${womanNumbers.totalReduced}</td><td>${manNumbers.totalReduced}</td></tr>
+        <tr><td>Número del alma</td><td>${womanNumbers.soulReduced}</td><td>${manNumbers.soulReduced}</td></tr>
+        <tr><td>Número de personalidad</td><td>${womanNumbers.personalityReduced}</td><td>${manNumbers.personalityReduced}</td></tr>
+        <tr><td>Camino de vida</td><td>${womanLifePath}</td><td>${manLifePath}</td></tr>
+      </tbody>
+    </table>
+  `;
+
+  outputDiv.innerHTML = output;
+});
