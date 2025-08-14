@@ -7,35 +7,37 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Numerología Pitagórica - Pareja Vida Pasada</h1>
+  <div class="container">
+    <h1>Numerología Pitagórica - Pareja Vida Pasada</h1>
 
-  <form id="numerologyForm">
-    <fieldset>
-      <legend>Mujer</legend>
-      <label>Nombre completo:
-        <input type="text" id="womanName" required />
-      </label>
-      <label>Fecha de nacimiento:</label>
-      <input type="number" id="womanDay" min="1" max="31" placeholder="Día" required />
-      <input type="number" id="womanMonth" min="1" max="12" placeholder="Mes" required />
-      <input type="number" id="womanYear" min="1900" max="2100" placeholder="Año" required />
-    </fieldset>
+    <form id="numerologyForm">
+      <fieldset>
+        <legend>Mujer</legend>
+        <label>Nombre completo:
+          <input type="text" id="womanName" required />
+        </label>
+        <label>Fecha de nacimiento:</label>
+        <input type="number" id="womanDay" min="1" max="31" placeholder="Día" required />
+        <input type="number" id="womanMonth" min="1" max="12" placeholder="Mes" required />
+        <input type="number" id="womanYear" min="1900" max="2100" placeholder="Año" required />
+      </fieldset>
 
-    <fieldset>
-      <legend>Hombre</legend>
-      <label>Nombre completo:
-        <input type="text" id="manName" required />
-      </label>
-      <label>Fecha de nacimiento:</label>
-      <input type="number" id="manDay" min="1" max="31" placeholder="Día" required />
-      <input type="number" id="manMonth" min="1" max="12" placeholder="Mes" required />
-      <input type="number" id="manYear" min="1900" max="2100" placeholder="Año" required />
-    </fieldset>
+      <fieldset>
+        <legend>Hombre</legend>
+        <label>Nombre completo:
+          <input type="text" id="manName" required />
+        </label>
+        <label>Fecha de nacimiento:</label>
+        <input type="number" id="manDay" min="1" max="31" placeholder="Día" required />
+        <input type="number" id="manMonth" min="1" max="12" placeholder="Mes" required />
+        <input type="number" id="manYear" min="1900" max="2100" placeholder="Año" required />
+      </fieldset>
 
-    <button type="submit">Calcular</button>
-  </form>
+      <button type="submit">Calcular</button>
+    </form>
 
-  <div id="output"></div>
+    <div id="output"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>
